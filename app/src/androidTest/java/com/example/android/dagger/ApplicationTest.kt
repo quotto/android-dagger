@@ -16,19 +16,23 @@
 
 package com.example.android.dagger
 
+import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.runner.AndroidJUnit4
 import com.example.android.dagger.main.MainActivity
 import org.junit.Test
+import org.junit.runner.RunWith
 
 class ApplicationTest {
 
     @Test
     fun runApp() {
-        ActivityScenario.launch(MainActivity::class.java)
+        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        scenario.moveToState(Lifecycle.State.CREATED)
 
         // Should be in Registration/EnterDetails because the user is not registered
         onView(withText("Register to Dagger World!")).check(matches(isDisplayed()))
